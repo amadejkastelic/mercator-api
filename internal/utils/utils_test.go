@@ -3,7 +3,7 @@ package utils_test
 import (
 	"testing"
 
-	"github.com/amadejkastelic/spar-api/internal/utils"
+	"github.com/amadejkastelic/mercator-api/internal/utils"
 )
 
 type mockCloser struct {
