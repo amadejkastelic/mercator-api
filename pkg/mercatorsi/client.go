@@ -18,6 +18,8 @@ const (
 )
 
 type Client interface {
+	Search(in SearchRequest) (*SearchResponse, error)
+	Categories() (*CategoriesResponse, error)
 }
 
 type client struct {
@@ -27,7 +29,7 @@ type client struct {
 }
 
 // NewClient creates a new Sparsi client with the given options.
-func NewClient(opts ...option) *client {
+func NewClient(opts ...option) Client {
 	baseURL, _ := url.Parse(defaultBaseURL)
 
 	c := &client{

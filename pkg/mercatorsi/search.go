@@ -6,7 +6,28 @@ import (
 	"strconv"
 )
 
-const searchURL = "/products/browseProducts/getProducts"
+const (
+	categoriesURL = "/products/categories/getCategories"
+	searchURL     = "/products/browseProducts/getProducts"
+)
+
+func (c *client) Categories() (*CategoriesResponse, error) {
+	req, err := c.newRequest("GET", categoriesURL, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp []CategoryAttachment
+	status, err := c.do(req, &resp)
+	if err != nil {
+		return nil, err
+	}
+	if status.StatusCode != 200 {
+		return nil, fmt.Errorf("unexpected status: %s", status.Status)
+	}
+
+	return &CategoriesResponse{Values: resp}, nil
+}
 
 func (c *client) Search(in SearchRequest) (*SearchResponse, error) {
 	query := url.Values{}
@@ -16,6 +37,9 @@ func (c *client) Search(in SearchRequest) (*SearchResponse, error) {
 
 	if in.Filter != "" {
 		query.Set("filterData[search]", in.Filter)
+	}
+	if in.CategoryID != "" {
+		query.Set("filterData[categories]", in.CategoryID)
 	}
 	if in.Sort != nil {
 		if in.Sort.Field != "" {

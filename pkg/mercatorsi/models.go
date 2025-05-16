@@ -65,8 +65,26 @@ type Category struct {
 	ID                 string     `json:"id,omitempty"`
 	ParentID           string     `json:"parent_id,omitempty"`
 	Name               string     `json:"name,omitempty"`
+	UseForInitialSort  string     `json:"use_for_initial_sort,omitempty"`
+	Level              string     `json:"level,omitempty"`
+	Image              string     `json:"image,omitempty"`
+	Note               string     `json:"note,omitempty"`
+	HasFoodStuff       string     `json:"has_food_stuff,omitempty"`
+	UserPiecesLimit    string     `json:"user_pieces_limit,omitempty"`
+	UserKgLimit        string     `json:"user_kg_limit,omitempty"`
+	CompanyPiecesLimit string     `json:"company_pieces_limit,omitempty"`
 	NoOfProducts       string     `json:"no_of_products,omitempty"`
-	NameWithProdCounts string     `json:"name_with_prod_counts,omitempty"`
+	SeoDescription     string     `json:"seo_description,omitempty"`
+	SeoKeywords        string     `json:"seo_keywords,omitempty"`
+	CanRemoveOldDevice string     `json:"can_remove_old_device,omitempty"`
+	Created            string     `json:"created,omitempty"`
+	Modified           string     `json:"modified,omitempty"`
+	Lft                string     `json:"lft,omitempty"`
+	Rght               string     `json:"rgt,omitempty"`
+	IbmID              string     `json:"ibm_id,omitempty"`
+	GoldSort           string     `json:"gold_sort,omitempty"`
+	NameWithProdCount  string     `json:"name_with_prod_count,omitempty"`
+	ImageURL           string     `json:"image_url,omitempty"`
 	Path               string     `json:"path,omitempty"`
 	Children           []Category `json:"children,omitempty"`
 }
@@ -81,14 +99,24 @@ type Sort struct {
 }
 
 type SearchRequest struct {
-	Limit  int
-	Offset int
-	From   int
-	Filter string
-	Sort   *Sort
+	Limit      int
+	Offset     int
+	From       int
+	Filter     string
+	CategoryID string
+	Sort       *Sort
 }
 
 type SearchResponse struct {
 	Products   []Product  `json:"products,omitempty"`
 	FilterData FilterData `json:"filterData,omitempty"`
+}
+
+type CategoryAttachment struct {
+	Category   Category        `json:"category,omitempty"`
+	Attachment json.RawMessage `json:"attachment,omitempty"`
+}
+
+type CategoriesResponse struct {
+	Values []CategoryAttachment `json:"values,omitempty"`
 }
