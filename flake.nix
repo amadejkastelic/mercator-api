@@ -66,7 +66,7 @@
 
           package = import ./nix/package.nix {
             inherit pkgs;
-            version = "0.1.0";
+            version = "0.2.1";
           };
         in
         {
