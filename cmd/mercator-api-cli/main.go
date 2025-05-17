@@ -11,7 +11,7 @@ import (
 
 var (
 	listCategoriesPtr = flag.Bool("list-categories", false, "List product categories")
-	queryPtr          = flag.String("query", "*", "Search query")
+	queryPtr          = flag.String("query", "", "Search query")
 	categoryPtr       = flag.String("category", "", "Category ID to filter by")
 	pageSizePtr       = flag.Int("page-size", 10, "Number of results per page")
 	pagePtr           = flag.Int("page", 0, "Page number")
