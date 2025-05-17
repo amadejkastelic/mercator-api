@@ -9,14 +9,17 @@ import (
 type FlexibleFloat64 float64
 
 func (f *FlexibleFloat64) UnmarshalJSON(data []byte) error {
-	// Try if float64
+	if len(data) == 0 {
+		*f = FlexibleFloat64(0)
+		return nil
+	}
+
 	var fl float64
 	if err := json.Unmarshal(data, &fl); err == nil {
 		*f = FlexibleFloat64(fl)
 		return nil
 	}
 
-	// Try if int
 	var i int
 	if err := json.Unmarshal(data, &i); err == nil {
 		*f = FlexibleFloat64(i)
